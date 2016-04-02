@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<HONGBOOKS>
+
+	<BOOK ID="1">
+		<TITLE>The Heretics of Finance</TITLE>
+		<AUTHOR>Andrew W. Lo, Jasmina Hasanhodzic</AUTHOR>
+		<PUBLISHER>Bloomberg</PUBLISHER>
+		<ISBN>978-1-57660-316-1</ISBN>
+		<PRICE>$29.95</PRICE>
+	</BOOK>
+	<BOOK ID="2">
+		<TITLE>The Art of M and A Fourth Edition</TITLE>
+		<AUTHOR>Stanley Forster Reed, Alexandra Reed Lajoux, H. Peter Nesvold</AUTHOR>
+		<PUBLISHER>McGraw Hill</PUBLISHER>
+		<ISBN>978-0-07-240302-3</ISBN>
+		<PRICE>$135.00</PRICE>
+	</BOOK>
+	<BOOK ID="3">
+		<TITLE>Mr.Market Miscalculates</TITLE>
+		<AUTHOR>James Grant</AUTHOR>
+		<PUBLISHER>Axios</PUBLISHER>
+		<ISBN>978-1-60419-008-3</ISBN>
+		<PRICE>NA</PRICE>
+	</BOOK>
+</ASHERFAVBOOKS>
