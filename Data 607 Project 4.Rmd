@@ -1,0 +1,90 @@
+---
+title: "Data607 Project 4"
+author: "Daniel Hong"
+date: "April 20, 2016"
+output: html_document
+---
+
+For Project 4, you should take information from a relational database and migrate it to a NoSQL database of your own choosing. 
+
+For the relational database, you might use the flights database, the tb database, the "data skills" database your team created for Project 3, or another database of your own choosing or creation.
+
+For the NoSQL database, you may use MongoDB, Neo4j (which we introduce in Week 12), or another NoSQL database of your choosing.
+
+Your migration process needs to be reproducible.  R code is encouraged, but not required.  You should also briefly describe the advantages and disadvantages of storing the data in a relational database vs. your NoSQL database.
+
+I watched the videos that were posted on how to import data into MongoDB using mongoimport. It took several iterations but was able to connect, the one additional step that was required was creating a folder c:/data/db as this is the default folder for MongoDB. Once this folder was created, the permissions also needed to be updated. The default permissions did not allow full control.
+
+I also did some research and found an rmongodb tutorial, the steps can be found below for the flights database.
+
+Load libraries
+```{r}
+library(devtools)
+library(plyr)
+library(RCurl)
+library(rjson)
+library(rmongodb)
+```
+
+Connect to MongoDB
+```{r}
+mongo = mongo.create(host = "localhost")
+mongo.is.connected(mongo)
+```
+
+What's in MongoDB
+```{r}
+mongo.get.databases(mongo)
+mongo.get.database.collections(mongo, db = "flights")
+DBNS = "flights.airports"
+mongo.count(mongo, ns = DBNS)
+```
+
+Query the data
+```{r}
+#tmp = mongo.find.one(mongo, ns = "flights.aiports")
+#tmp
+
+#tmp = mongo.bson.to.list(tmp)
+#class(tmp)
+#names(tmp)
+#tmp
+
+#find_all <- mongo.find.all(mongo, ns=DBNS)
+#nrow(find_all)
+```
+
+Create a dataframe
+```{r}
+airports = data.frame(strinASFactors=FALSE)
+```
+
+Create the namespace
+```{r}
+"DBNS = flights.airports"
+```
+
+Replicate select* (from SQL) by creating a cursor to iterate over
+```{r}
+cursor = mongo.find(mongo, DBNS)
+```
+
+Create the counter
+```{r}
+i=1
+```
+
+Iterate over the cursor: 1.Iterate and grab the next record 2.Make it a dataframe 3.Bind to the master dataframe
+```{r}
+while (mongo.cursor.next(cursor)) {
+    tmp = mongo.bson.to.list(mongo.cursor.value(cursor))
+    tmp.df = as.data.frame(t(unlist(tmp)), stringAsFactors=FALSE)
+    airports = rbind.fill(airports, tmp.df)
+}
+```
+
+Check to see what we have
+```{r}
+dim(airports)
+str(airports)
+```
